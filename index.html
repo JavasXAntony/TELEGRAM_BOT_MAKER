@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>IceBot Generator - Telegram Bot Creator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>IceBot Generator</h1>
+    
+    <div class="stats">
+      <div class="stat-card">
+        <h3 id="caseCount">0</h3>
+        <p>Commands</p>
+      </div>
+      <div class="stat-card">
+        <h3 id="charCount">0</h3>
+        <p>Characters</p>
+      </div>
+      <div class="stat-card">
+        <h3 id="lineCount">0</h3>
+        <p>Lines of Code</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title"><i class="fas fa-cog"></i> Basic Configuration</h2>
+      <div class="input-group">
+        <div>
+          <label for="botVar">Bot Variable Name</label>
+          <input type="text" id="botVar" placeholder="bot">
+        </div>
+        <div>
+          <label for="botToken">Telegram Bot Token</label>
+          <input type="text" id="botToken" placeholder="123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11">
+        </div>
+      </div>
+      
+      <div class="input-group">
+        <div>
+          <label for="ownerName">Owner Name</label>
+          <input type="text" id="ownerName" placeholder="John Doe">
+        </div>
+        <div>
+          <label for="ownerId">Owner ID</label>
+          <input type="text" id="ownerId" placeholder="123456789">
+        </div>
+      </div>
+      
+      <div class="advanced-options">
+        <label>
+          <input type="checkbox" id="enableAdvanced">
+          Show Advanced Options
+        </label>
+        
+        <div id="advancedOptions" style="display: none; margin-top: 15px;">
+          <div class="input-group">
+            <div>
+              <label for="botName">Bot Name</label>
+              <input type="text" id="botName" placeholder="MyBot">
+            </div>
+            <div>
+              <label for="botUsername">Bot Username</label>
+              <input type="text" id="botUsername" placeholder="@MyBot">
+            </div>
+          </div>
+          
+          <label for="welcomeMessage">Welcome Message</label>
+          <textarea id="welcomeMessage" rows="2" placeholder="Default welcome message when user starts the bot"></textarea>
+          
+          <label for="errorMessage">Error Message</label>
+          <textarea id="errorMessage" rows="2" placeholder="Message shown when command is not recognized"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title"><i class="fas fa-code"></i> Command Configuration</h2>
+      
+      <div class="tab-container">
+        <div class="tabs">
+          <div class="tab active" data-tab="auto">Auto Mode</div>
+          <div class="tab" data-tab="manual">Manual Mode</div>
+          <div class="tab" data-tab="premium">Premium Features</div>
+        </div>
+        
+        <div class="tab-content active" id="auto-tab">
+          <div class="input-group">
+            <div>
+              <label for="caseInput">Command (case sensitive)</label>
+              <input type="text" id="caseInput" placeholder="/start">
+            </div>
+            <div>
+              <label for="commandType">Command Type</label>
+              <select id="commandType">
+                <option value="text">Text Response</option>
+                <option value="photo">Photo Response</option>
+                <option value="document">Document Response</option>
+                <option value="sticker">Sticker Response</option>
+              </select>
+            </div>
+          </div>
+          
+          <label for="responseInput">Response Content</label>
+          <textarea id="responseInput" rows="3" placeholder="Hello! Welcome to my bot."></textarea>
+          
+          <div class="button-group">
+            <button onclick="addCase()"><i class="fas fa-plus"></i> Add Command</button>
+            <button class="secondary" onclick="previewCommand()"><i class="fas fa-eye"></i> Preview</button>
+          </div>
+        </div>
+        
+        <div class="tab-content" id="manual-tab">
+          <label for="manualCode">Custom JavaScript Code</label>
+          <textarea id="manualCode" rows="5" placeholder="case '/ping':\n  bot.sendMessage(chatId, 'pong!');\n  break;"></textarea>
+          
+          <div class="button-group">
+            <button onclick="addManualCase()"><i class="fas fa-plus"></i> Add Custom Command</button>
+            <button class="secondary" onclick="validateCode()"><i class="fas fa-check"></i> Validate Code</button>
+          </div>
+        </div>
+        
+        <div class="tab-content" id="premium-tab">
+          <div class="info-box">
+            <h3><i class="fas fa-crown"></i> Premium Features</h3>
+            <p>Unlock advanced bot capabilities with our premium features:</p>
+            
+            <div class="features-grid">
+              <div class="feature-card">
+                <i class="fas fa-database"></i>
+                <h4>Database Support</h4>
+                <p>MongoDB/MySQL integration</p>
+              </div>
+              <div class="feature-card">
+                <i class="fas fa-users"></i>
+                <h4>User Management</h4>
+                <p>Admin/user roles system</p>
+              </div>
+              <div class="feature-card">
+                <i class="fas fa-calendar-alt"></i>
+                <h4>Scheduled Tasks</h4>
+                <p>Cron job scheduling</p>
+              </div>
+              <div class="feature-card">
+                <i class="fas fa-chart-line"></i>
+                <h4>Analytics</h4>
+                <p>User activity tracking</p>
+              </div>
+            </div>
+            
+            <button style="margin-top: 20px; width: 100%;" class="secondary">
+              <i class="fas fa-unlock"></i> Upgrade to Premium
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div id="errorMsg" class="error" style="display: none;"></div>
+      <div id="successMsg" class="success" style="display: none;"></div>
+      
+      <h3 class="section-title"><i class="fas fa-list"></i> Added Commands</h3>
+      <div id="casesList"></div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title"><i class="fas fa-file-code"></i> Generated Script</h2>
+      
+      <div class="button-group">
+        <button onclick="copyToClipboard()"><i class="fas fa-copy"></i> Copy Script</button>
+        <button onclick="downloadScript()"><i class="fas fa-download"></i> Download JS</button>
+        <button class="secondary" onclick="exportConfig()"><i class="fas fa-file-export"></i> Export Config</button>
+        <button onclick="runBot()"><i class="fas fa-terminal"></i>Real Run (beta)</button>
+        <button class="danger" onclick="resetAll()"><i class="fas fa-trash"></i> Reset All</button>
+      </div>
+      
+      <pre><code id="outputCode" class="javascript">// Your generated script will appear here</code></pre>
+      
+      <div class="info-box">
+        <h3><i class="fas fa-lightbulb"></i> Installation Instructions</h3>
+        <ol>
+          <li>Save the script as <code>bot.js</code></li>
+          <li>Install required packages: <code>npm install node-telegram-bot-api</code></li>
+          <li>Run your bot: <code>node bot.js</code></li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2 class="section-title"><i class="fas fa-robot"></i> Bot Simulator</h2>
+      
+      <div class="input-group">
+        <div style="flex: 3;">
+          <label for="userInput">Test Command</label>
+          <input type="text" id="userInput" placeholder="/start">
+        </div>
+       <div style="flex: 0; align-self: flex-end;">
+          <button onclick="simulateBot()" style="width: 100%; transform: translateY(-23px);"><i class="fas fa-play"></i> Test</button>
+       </div>
+      </div>
+      
+      <div id="chatPreview">
+        <div class="chat-message bot-message">
+          <strong>🤖 Bot:</strong> Send a command to test the bot response
+        </div>
+      </div>
+      
+      <div class="button-group" style="margin-top: 15px;">
+        <button class="secondary" onclick="clearChat()"><i class="fas fa-broom"></i> Clear Chat</button>
+        <button class="secondary" onclick="testAllCommands()"><i class="fas fa-vial"></i> Test All Commands</button>
+      </div>
+    </div>
+
+    <div class="watermark">
+      <p>IceBot Generator v2.0 • Made with ❄️ by Javas • © 2025</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
